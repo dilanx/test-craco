@@ -1,5 +1,15 @@
 #!/bin/bash
 
+check_command() {
+  if [ -z "$(command -v $1)" ]
+  then
+    echo "$1 is not installed"
+    echo ""
+    echo "$2"
+    exit 2
+  fi
+}
+
 assert_not_empty() {
   if [ -z "$1" ]
   then
@@ -20,6 +30,11 @@ use_default() {
 update_json() {
   jq ".$1 = \"$2\"" package.json > tmp.$$.json && mv tmp.$$.json package.json
 }
+
+# Check commands
+check_command "npm" "Make sure node is installed, I recommend using nvm"
+check_command "npx" "Make sure node is installed, I recommend using nvm"
+check_command "jq" "jq can be installed with 'brew install jq'"
 
 # Start!
 printf "Setting up test for CRACO\n"

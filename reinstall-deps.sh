@@ -1,6 +1,7 @@
 #!/bin/bash
 
-if [ ! -f "package.json" ]; then
+if [ ! -f "package.json" ]
+then
   echo "package.json not found in this direcotry"
   exit 1
 fi
