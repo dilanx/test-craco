@@ -42,6 +42,11 @@ read craco_version
 CRACO_VERSION=$(use_default "$craco_version" "latest")
 CRACO_PKG="@craco/craco@$CRACO_VERSION"
 
+# CRACO config file
+printf "CRACO config file [craco.config.js]: "
+read craco_config
+CRACO_CONFIG=$(use_default "$craco_config" "craco.config.js")
+
 # Create app
 npx $NPX_PKG $APP_NAME
 cd $APP_NAME
@@ -51,6 +56,9 @@ rm -rf .git
 
 # Install CRACO
 npm i -D $CRACO_PKG
+
+# Create craco config
+echo "module.exports = {}" > $CRACO_CONFIG
 
 # Update package.json
 update_json "scripts.start" "craco start"
